@@ -1,0 +1,8 @@
+#! /bin/bash
+
+cat <<CO_AUTHORED_BY | perl -n -e 'print if ! /^\s*#/ and ! /^\s+$/'
+Co-Authored-By: Michael R. Wolf <MichaelRWolf@att.net>
+Co-Authored-By: Mike Kienenberger <mkienenb@gmail.com>
+
+# Co-Authored-By: Dopple Dot Ganger <look-alike@sample.com>
+CO_AUTHORED_BY
