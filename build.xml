@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<project name="VerseLearner" default="jar" basedir=".">
+
+    <property environment="env" />
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Some general properties                                          -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <target name="properties" description="--> Sets a number of common properties">
+    	<property name="project.name" value="VerseLearner" />
+    	<property name="project.vendor" value="Mike Kienenberger mkienenb@gmail.com" />
+        <property name="jar.name" value="VerseLearner.jar" />
+        <property name="dist" value="dist" />
+        <property name="classes" value="classes" />
+        <property name="src" value="src" />
+        <property name="number" value="1.0" />
+    	
+    	<tstamp>
+    	    <format property="project.build.date" pattern="yyyy-MM-dd HH:mm:ss" locale="en"/>
+    	</tstamp>
+    </target>
+
+    <!-- ========================================== -->
+    <!-- Cleans distribution files and subprojects. -->
+    <!-- ========================================== -->
+    <target name="clean" depends="properties" description="--> deletes verselearner classes, doc/api, dist, and bin directories">
+        <delete includeEmptyDirs="true" dir="${dist}"/>
+        <delete includeEmptyDirs="true" dir="${classes}"/>
+    </target>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Copy any resource or configuration files -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <target name="resources" depends="properties" description="--> copies resources from src to classes">
+        <copy todir="${classes}" includeEmptyDirs="no">
+            <fileset dir="${src}">
+            <patternset>
+                <include name="**/*.properties"/>
+            </patternset>
+            </fileset>
+        </copy>
+    </target>
+    
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Compiling the code                                               -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <target name="compile" depends="properties,resources" description="--> compiles the verserlearner code">
+        <mkdir dir="${classes}" />
+        <javac srcdir="${src}" destdir="${classes}">
+            <classpath refid="classpath" />
+        </javac>
+    </target>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Jarring the code                                                 -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <target name="jar"  depends="properties,compile" description="--> makes a jarfile from the verselearner code">
+        <mkdir dir="${dist}" />
+
+    	<jar jarfile="${dist}/${jar.name}">
+			<fileset dir="${classes}">
+			</fileset>
+			<fileset dir="${src}">
+			</fileset>
+		    <manifest>
+			      <attribute name="Manifest-Version" value="1.0"/>
+			      <attribute name="Class-Path" value=""/>
+			      <attribute name="Main-Class" value="org.gamenet.application.VerseLearner.VerseLearner"/>
+				  <attribute name="Built-By" value="${user.name}"/>
+				  <attribute name="Built-Date" value="${project.build.date}"/>
+
+			      <attribute name="Implementation-Title" value="${project.name}"/>
+				  <attribute name="Implementation-Version" value="${number}"/>
+				  <attribute name="Implementation-Vendor" value="${project.vendor}"/>
+				  <attribute name="Specification-Title" value="${project.name}"/>
+				  <attribute name="Specification-Version" value="${number}"/>
+				  <attribute name="Specification-Vendor" value="${project.vendor}"/>
+		    </manifest>
+		</jar>        
+    </target>
+
+</project>
