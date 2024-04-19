@@ -49,7 +49,6 @@
     <target name="compile" depends="properties,resources" description="--> compiles the verserlearner code">
         <mkdir dir="${classes}" />
         <javac srcdir="${src}" destdir="${classes}">
-            <classpath refid="classpath" />
         </javac>
     </target>
 
