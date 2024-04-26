@@ -214,7 +214,7 @@ public class VerseLearner {
     }
 
 	public void checkVerse(String proposedAnswer) {
-		String answer = normalizeString(getAnswer());
+		String answer = normalizeString(getVerseText());
 		String normalizedProposedAnswer = normalizeString(proposedAnswer);
         
         // leading and trailing space aren't important
@@ -274,7 +274,7 @@ public class VerseLearner {
 		return (Verse)verseList.get(verseIndex);
 	}
 
-	private String getAnswer() {
+	private String getVerseText() {
 		String answer = getMemoryVerse().getText();
 //		
 //		if (includeReferenceInAnswer)
@@ -562,7 +562,7 @@ public class VerseLearner {
 		checkRequests = 0;
 		hintRequests = 0;
 
-		window.initializeVerseAnswer(getAnswer());
+		window.initializeVerseAnswer(getVerseText());
 	}
 	
 	public void setWriteVersesFromReferencesMode() {
@@ -628,7 +628,7 @@ public class VerseLearner {
 
 	public String requestHint(String proposedAnswer) {
 		hintRequests++;
-		String realAnswer = getAnswer();
+		String realAnswer = getVerseText();
 		String hint = hint(proposedAnswer, realAnswer);
 		
 		return hint;
@@ -636,7 +636,7 @@ public class VerseLearner {
 
 	public void reportUnhelpfulHint(String proposedAnswer) {
 
-		String realAnswer = getAnswer();
+		String realAnswer = getVerseText();
 		String hint = hint(proposedAnswer, realAnswer);
 		String answerSoFar = correctAnswerPrefix(proposedAnswer, realAnswer);
 
@@ -672,7 +672,7 @@ public class VerseLearner {
 
 	public String checkAnswerSoFar(String proposedAnswer) {
 		checkRequests++;
-		String realAnswer = getAnswer();
+		String realAnswer = getVerseText();
 		String answerSoFar = correctAnswerPrefix(proposedAnswer, realAnswer);
 		return answerSoFar;
 	}
