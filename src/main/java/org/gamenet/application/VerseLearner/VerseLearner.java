@@ -280,12 +280,6 @@ public class VerseLearner {
 
 	private String getVerseText() {
 		String answer = getMemoryVerse().getText();
-//		
-//		if (includeReferenceInAnswer)
-//		{
-//			answer = answer + " " + getReference();
-//		}
-		
 		return answer;
 	}
 
