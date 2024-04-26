@@ -218,10 +218,14 @@ public class VerseLearner {
 		String normalizedProposedAnswer = normalizeString(proposedAnswer);
         
         // leading and trailing space aren't important
-		if (normalizedProposedAnswer.trim().equals(normalizedVerseText.trim()))
+		if (isCorrectAnswer(normalizedProposedAnswer, normalizedVerseText))
 		{
 			verseIsCorrect();
 		}
+	}
+
+	private boolean isCorrectAnswer(String normalizedProposedAnswer, String normalizedVerseText) {
+		return normalizedProposedAnswer.trim().equals(normalizedVerseText.trim());
 	}
 
 	private void verseIsCorrect() {
