@@ -279,8 +279,7 @@ public class VerseLearner {
 	}
 
 	private String getVerseText() {
-		String answer = getMemoryVerse().getText();
-		return answer;
+        return getMemoryVerse().getText();
 	}
 
 	public String getReference() {
