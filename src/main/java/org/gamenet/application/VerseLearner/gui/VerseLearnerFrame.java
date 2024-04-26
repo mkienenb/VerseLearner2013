@@ -578,7 +578,7 @@ public class VerseLearnerFrame extends JFrame {
 		}
 		else
 		{
-			verseReferenceLabel.setText(controller.getReference());
+			verseReferenceLabel.setText(controller.getVerseReference());
 			verseReferenceInput.setVisible(false);
 			verseReferenceButton.setVisible(false);
 		}

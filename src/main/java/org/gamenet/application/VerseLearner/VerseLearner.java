@@ -255,7 +255,7 @@ public class VerseLearner {
 
 		if (goToNextVerse)
 		{
-	        String currentVerseText = getReference() + "\n" + getMemoryVerse().getText();
+	        String currentVerseText = getVerseReference() + "\n" + getMemoryVerse().getText();
 
             window.addCurrentVerseToCompletedVerseList(currentVerseText);
 
@@ -282,7 +282,7 @@ public class VerseLearner {
         return getMemoryVerse().getText();
 	}
 
-	public String getReference() {
+	public String getVerseReference() {
         return getMemoryVerse().getReference();
 	}
 
