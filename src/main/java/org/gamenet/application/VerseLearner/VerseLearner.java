@@ -26,9 +26,9 @@ public class VerseLearner {
     
 	private VerseLearnerFrame window = null;
 
-	private int answerRequests;
-	private int checkRequests;
-	private int hintRequests;
+	private int answerRequestCount;
+	private int checkRequestCount;
+	private int hintRequestCount;
 	
 	private int verseIndex;
 	private List<Verse> verseList = null;
@@ -270,7 +270,7 @@ public class VerseLearner {
 	}
 
 	private boolean isReadyForNextVerse_maybe() {
-		return (0 == answerRequests) && (0 == checkRequests) && (0 == hintRequests);
+		return (0 == answerRequestCount) && (0 == checkRequestCount) && (0 == hintRequestCount);
 	}
 
 	public Verse getMemoryVerse()
@@ -553,9 +553,9 @@ public class VerseLearner {
 
 	public void initializeVerse()
 	{
-		answerRequests = 0;
-		checkRequests = 0;
-		hintRequests = 0;
+		answerRequestCount = 0;
+		checkRequestCount = 0;
+		hintRequestCount = 0;
 
 		window.initializeVerseAnswer(getVerseText());
 	}
@@ -622,7 +622,7 @@ public class VerseLearner {
 	}
 
 	public String requestHint(String proposedAnswer) {
-		hintRequests++;
+		hintRequestCount++;
 		String realAnswer = getVerseText();
 		String hint = hint(proposedAnswer, realAnswer);
 		
@@ -662,11 +662,11 @@ public class VerseLearner {
 	}
 
 	public void didShowAnswer() {
-		answerRequests++;
+		answerRequestCount++;
 	}
 
 	public String checkAnswerSoFar(String proposedAnswer) {
-		checkRequests++;
+		checkRequestCount++;
 		return partOfTheVerseThatIsCorrectSoFar(proposedAnswer);
 	}
 
