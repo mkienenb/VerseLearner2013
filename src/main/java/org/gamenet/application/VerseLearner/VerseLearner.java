@@ -226,7 +226,7 @@ public class VerseLearner {
 
 	private void verseIsCorrect() {
 		boolean goToNextVerse = false;
-		if ((0 == answerRequests) && (0 == checkRequests) && (0 == hintRequests))
+		if (isReadyForNextVerse_maybe())
 		{
 			goToNextVerse = true;
 		}
@@ -263,6 +263,10 @@ public class VerseLearner {
 		}
 
 		initializeVerse();
+	}
+
+	private boolean isReadyForNextVerse_maybe() {
+		return (0 == answerRequests) && (0 == checkRequests) && (0 == hintRequests);
 	}
 
 	public Verse getMemoryVerse()
