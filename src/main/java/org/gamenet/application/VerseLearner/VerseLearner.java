@@ -220,7 +220,7 @@ public class VerseLearner {
         // leading and trailing space aren't important
 		if (isCorrectAnswer(normalizedProposedAnswer, normalizedVerseText))
 		{
-			verseIsCorrect();
+			handleUserAnsweredCorrectly();
 		}
 	}
 
@@ -228,7 +228,7 @@ public class VerseLearner {
 		return normalizedProposedAnswer.trim().equals(normalizedVerseText.trim());
 	}
 
-	private void verseIsCorrect() {
+	private void handleUserAnsweredCorrectly() {
 		boolean goToNextVerse = false;
 		if (isReadyForNextVerse_maybe())
 		{
