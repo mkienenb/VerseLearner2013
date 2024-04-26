@@ -68,12 +68,12 @@ public class VerseLearnerFrame extends JFrame {
 
     final private JPanel modeBookOrderPanel = new JPanel();
     
-    private VerseLearner controller;
+    private VerseLearner verseLearnerApplication;
     
 	public VerseLearnerFrame(VerseLearner verseLearner) {
 		super("VerseLearner");
 		
-		this.controller = verseLearner;
+		this.verseLearnerApplication = verseLearner;
 
 		initialize();
 	}
@@ -115,7 +115,7 @@ public class VerseLearnerFrame extends JFrame {
         
         openMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	controller.openFile();
+            	verseLearnerApplication.openFile();
             }
         });
         
@@ -125,7 +125,7 @@ public class VerseLearnerFrame extends JFrame {
                 int result = JOptionPane.showConfirmDialog(parent, "Are you sure you want to quit?");
                 if (JOptionPane.YES_OPTION == result || JOptionPane.OK_OPTION == result)
                 {
-                	controller.quit();
+                	verseLearnerApplication.quit();
                 }
             }
         });
@@ -148,48 +148,48 @@ public class VerseLearnerFrame extends JFrame {
 
         modeFullVerseTextMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.setWriteVersesFromReferencesMode();
+                verseLearnerApplication.setWriteVersesFromReferencesMode();
             }
         });
 
         modeVerseOrderMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.setPutVersesInCorrectOrderMode();
+                verseLearnerApplication.setPutVersesInCorrectOrderMode();
             }
         });
 
         modeBookOrderMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.setPutBooksOfTheBibleInCorrectOrderMode();
+                verseLearnerApplication.setPutBooksOfTheBibleInCorrectOrderMode();
             }
         });
 
         // optionMenu.addSeparator();
         final JCheckBoxMenuItem allowAnyNumberOfSpacesAfterASentenceCheckbox = new JCheckBoxMenuItem(
         		"Allow any number of spaces after a sentence",
-        		controller.isAllowAnyNumberOfSpacesAfterASentence());
+        		verseLearnerApplication.isAllowAnyNumberOfSpacesAfterASentence());
         optionMenu.add(allowAnyNumberOfSpacesAfterASentenceCheckbox);
 
         final JCheckBoxMenuItem ignoreWhitespaceCheckbox = new JCheckBoxMenuItem(
         		"Ignore whitespace",
-        		controller.isIgnoreWhitespace());
+        		verseLearnerApplication.isIgnoreWhitespace());
         optionMenu.add(ignoreWhitespaceCheckbox);
 
         final JCheckBoxMenuItem ignoreCaseCheckbox = new JCheckBoxMenuItem(
         		"Ignore case-sensitivity",
-        		controller.isIgnoreCase());
+        		verseLearnerApplication.isIgnoreCase());
         optionMenu.add(ignoreCaseCheckbox);
 
         final JCheckBoxMenuItem ignorePunctuationCheckbox = new JCheckBoxMenuItem(
         		"Ignore punctuation",
-        		controller.isIgnorePunctuation());
+        		verseLearnerApplication.isIgnorePunctuation());
         optionMenu.add(ignorePunctuationCheckbox);
 
         allowAnyNumberOfSpacesAfterASentenceCheckbox.addChangeListener(new ChangeListener() {
             
             public void stateChanged(ChangeEvent e) {
                 ToggleButtonModel toggleButtonModel = (ToggleButtonModel)allowAnyNumberOfSpacesAfterASentenceCheckbox.getModel();
-                controller.setAllowAnyNumberOfSpacesAfterASentence(toggleButtonModel.isSelected());
+                verseLearnerApplication.setAllowAnyNumberOfSpacesAfterASentence(toggleButtonModel.isSelected());
             }
         });
 
@@ -197,7 +197,7 @@ public class VerseLearnerFrame extends JFrame {
             
             public void stateChanged(ChangeEvent e) {
                 ToggleButtonModel toggleButtonModel = (ToggleButtonModel)ignoreWhitespaceCheckbox.getModel();
-                controller.setIgnoreWhitespace(toggleButtonModel.isSelected());
+                verseLearnerApplication.setIgnoreWhitespace(toggleButtonModel.isSelected());
             }
         });
         
@@ -205,7 +205,7 @@ public class VerseLearnerFrame extends JFrame {
             
             public void stateChanged(ChangeEvent e) {
                 ToggleButtonModel toggleButtonModel = (ToggleButtonModel)ignoreCaseCheckbox.getModel();
-                controller.setIgnoreCase(toggleButtonModel.isSelected());
+                verseLearnerApplication.setIgnoreCase(toggleButtonModel.isSelected());
             }
         });
 
@@ -213,20 +213,20 @@ public class VerseLearnerFrame extends JFrame {
             
             public void stateChanged(ChangeEvent e) {
                 ToggleButtonModel toggleButtonModel = (ToggleButtonModel)ignorePunctuationCheckbox.getModel();
-                controller.setIgnorePunctuation(toggleButtonModel.isSelected());
+                verseLearnerApplication.setIgnorePunctuation(toggleButtonModel.isSelected());
             }
         });
     }
 
     private void initializeModeBookOrderUI()
     {
-        DraggableJList<String> bookJList = new DraggableJList<String>(controller.getBookNameVector());
+        DraggableJList<String> bookJList = new DraggableJList<String>(verseLearnerApplication.getBookNameVector());
         bookJList.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent m) {
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run()
                     {
-                    	controller.bookDragged();
+                    	verseLearnerApplication.bookDragged();
                     }
                 });
             }
@@ -238,13 +238,13 @@ public class VerseLearnerFrame extends JFrame {
 
     private void initializeModeVerseOrderUI()
     {
-        final DraggableJList<Verse> bookJList = new DraggableJList<Verse>(controller.getVerseVector());
+        final DraggableJList<Verse> bookJList = new DraggableJList<Verse>(verseLearnerApplication.getVerseVector());
         bookJList.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent m) {
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run()
                     {
-                    	controller.verseDragged();
+                    	verseLearnerApplication.verseDragged();
                     }
                 });
             }
@@ -259,7 +259,7 @@ public class VerseLearnerFrame extends JFrame {
             {
                 Verse verse = (Verse)value;
                 String output = verse.getText();
-                if (controller.isShowReferencesOnEachVerse())
+                if (verseLearnerApplication.isShowReferencesOnEachVerse())
                 {
                     output = verse.getReference() + ": " + output;
                 }
@@ -293,7 +293,7 @@ public class VerseLearnerFrame extends JFrame {
 
         final JCheckBox showReferencesOnEachVerseCheckbox = new JCheckBox(
         		"Show Reference On Each Verse",
-        		controller.isShowReferencesOnEachVerse());
+        		verseLearnerApplication.isShowReferencesOnEachVerse());
 
         controlsPanel.add(new JScrollPane(bookJList));
         controlsPanel.add(showReferencesOnEachVerseCheckbox);
@@ -301,7 +301,7 @@ public class VerseLearnerFrame extends JFrame {
         showReferencesOnEachVerseCheckbox.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 ToggleButtonModel toggleButtonModel = (ToggleButtonModel)showReferencesOnEachVerseCheckbox.getModel();
-                controller.setShowReferencesOnEachVerse(toggleButtonModel.isSelected());
+                verseLearnerApplication.setShowReferencesOnEachVerse(toggleButtonModel.isSelected());
 
                 bookJList.invalidate();
                 bookJList.repaint();
@@ -319,7 +319,7 @@ public class VerseLearnerFrame extends JFrame {
         
         final JCheckBox includeReferenceInAnswerCheckbox = new JCheckBox(
         		"Include Reference In Answer",
-        		controller.isIncludeReferenceInAnswer());
+        		verseLearnerApplication.isIncludeReferenceInAnswer());
         
         verseOutputTextComponent.setEditable(false);
         verseOutputTextComponent.setLineWrap(true);
@@ -441,7 +441,7 @@ public class VerseLearnerFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int result = JOptionPane.showConfirmDialog(rootWindow, "Are you sure you want to change verses?");
                 if (JOptionPane.YES_OPTION == result || JOptionPane.OK_OPTION == result) {
-                	controller.changeVerses(verseReferenceInput.getText());
+                	verseLearnerApplication.changeVerses(verseReferenceInput.getText());
                 }
             }
         });
@@ -449,7 +449,7 @@ public class VerseLearnerFrame extends JFrame {
 		includeReferenceInAnswerCheckbox.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				ToggleButtonModel toggleButtonModel = (ToggleButtonModel)includeReferenceInAnswerCheckbox.getModel();
-				controller.setIncludeReferenceInAnswer(toggleButtonModel.isSelected());
+				verseLearnerApplication.setIncludeReferenceInAnswer(toggleButtonModel.isSelected());
 
 				initializeVerseReference();
 			}
@@ -458,7 +458,7 @@ public class VerseLearnerFrame extends JFrame {
 		hintButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String proposedAnswer = verseInputTextComponent.getText();
-				String hint = controller.requestHint(proposedAnswer);
+				String hint = verseLearnerApplication.requestHint(proposedAnswer);
 				
 				hintLabel.setText(hint);
 				reportUnhelpfulHintButton.setVisible(true);
@@ -468,7 +468,7 @@ public class VerseLearnerFrame extends JFrame {
 		reportUnhelpfulHintButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String proposedAnswer = verseInputTextComponent.getText();
-				controller.reportUnhelpfulHint(proposedAnswer);
+				verseLearnerApplication.reportUnhelpfulHint(proposedAnswer);
 			}
 		});
 		
@@ -480,7 +480,7 @@ public class VerseLearnerFrame extends JFrame {
 					result = JOptionPane.showConfirmDialog(rootWindow, "Are you sure you want to change verses?");
 				}
 				if (JOptionPane.YES_OPTION == result || JOptionPane.OK_OPTION == result) {
-					controller.previousVerse();
+					verseLearnerApplication.previousVerse();
 				}
 			}
 		
@@ -493,7 +493,7 @@ public class VerseLearnerFrame extends JFrame {
 					result = JOptionPane.showConfirmDialog(rootWindow, "Are you sure you want to change verses?");
 				}
 				if (JOptionPane.YES_OPTION == result || JOptionPane.OK_OPTION == result) {
-					controller.nextVerse();
+					verseLearnerApplication.nextVerse();
 				}
 			}
 		});
@@ -502,7 +502,7 @@ public class VerseLearnerFrame extends JFrame {
 			
 			private void onKeyEvent(final JButton reportUnhelpfulHintButton) {
 				reportUnhelpfulHintButton.setVisible(false);
-				controller.checkVerse(verseInputTextComponent.getText());
+				verseLearnerApplication.checkVerse(verseInputTextComponent.getText());
 			}
 		
 			public void keyReleased(KeyEvent e) {
@@ -523,7 +523,7 @@ public class VerseLearnerFrame extends JFrame {
 				answerLabel.setVisible(true);
 				showAnswerButton.setVisible(false);
 				hideAnswerButton.setVisible(true);
-				controller.didShowAnswer();
+				verseLearnerApplication.didShowAnswer();
 			}
 		});
 		
@@ -538,7 +538,7 @@ public class VerseLearnerFrame extends JFrame {
 		checkAnswerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String proposedAnswer = verseInputTextComponent.getText();
-				String answerSoFar = controller.checkAnswerSoFar(proposedAnswer);
+				String answerSoFar = verseLearnerApplication.checkAnswerSoFar(proposedAnswer);
 				checkAnswerLabel.setText(answerSoFar);
 			}
 		});
@@ -569,7 +569,7 @@ public class VerseLearnerFrame extends JFrame {
 	}
 	
 	public void initializeVerseReference() {
-		if (controller.isIncludeReferenceInAnswer())
+		if (verseLearnerApplication.isIncludeReferenceInAnswer())
 		{
 			verseReferenceLabel.setText("Verse Reference: ");
 			verseReferenceInput.setVisible(true);
@@ -578,7 +578,7 @@ public class VerseLearnerFrame extends JFrame {
 		}
 		else
 		{
-			verseReferenceLabel.setText(controller.getVerseReference());
+			verseReferenceLabel.setText(verseLearnerApplication.getVerseReference());
 			verseReferenceInput.setVisible(false);
 			verseReferenceButton.setVisible(false);
 		}
