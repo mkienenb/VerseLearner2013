@@ -283,9 +283,7 @@ public class VerseLearner {
 	}
 
 	public String getReference() {
-		String answer = getMemoryVerse().getReference();
-
-		return answer;
+        return getMemoryVerse().getReference();
 	}
 
 	private String correctAnswerPrefix(String rawProposedAnswer, String rawRealAnswer) {
