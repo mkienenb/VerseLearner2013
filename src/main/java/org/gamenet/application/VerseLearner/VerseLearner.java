@@ -667,6 +667,10 @@ public class VerseLearner {
 
 	public String checkAnswerSoFar(String proposedAnswer) {
 		checkRequests++;
+		return partOfTheVerseThatIsCorrectSoFar(proposedAnswer);
+	}
+
+	private String partOfTheVerseThatIsCorrectSoFar(String proposedAnswer) {
 		String realAnswer = getVerseText();
 		String answerSoFar = correctAnswerPrefix(proposedAnswer, realAnswer);
 		return answerSoFar;
